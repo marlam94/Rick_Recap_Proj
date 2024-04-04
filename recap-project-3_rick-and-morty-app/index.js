@@ -13,7 +13,14 @@ const pagination = document.querySelector('[data-js="pagination"]');
 // States
 let maxPage = 1;
 let page = 1;
-const searchQuery = "";
+let searchQuery = "";
+
+searchBarContainer.addEventListener("submit", (event) =>{
+  event.preventDefault(); 
+  searchQuery = searchBar.querySelector(".search-bar__input").value;
+  page =1 ;
+  fetchCharacters();
+});
 
 nextButton.addEventListener("click", () => {
   if (page < maxPage) {
@@ -31,7 +38,7 @@ prevButton.addEventListener("click", () => {
 
 async function fetchCharacters() {
   const response = await fetch(
-    `https://rickandmortyapi.com/api/character?page=${page}`
+    `https://rickandmortyapi.com/api/character?page=${page}&name=${searchQuery}`
   );
   const data = await response.json();
   // console.log(data.info.pages);
